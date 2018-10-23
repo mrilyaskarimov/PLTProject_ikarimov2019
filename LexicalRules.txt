@@ -1,0 +1,61 @@
+Prog := [Function]+
+
+Function := void_Func | nonVoid_Func
+
+void_Func := 'void' Name '(' [Args]* ')' '{' [Statements]* '}'
+nonVoid_Func := TypeIdentifier Name '(' [Args]* ')' '{' [Statements]* 'return' Value '}' 
+
+
+// function I tek air, type identifier i 3 yere bol, primitive  reference, void 
+TypeIdentifier := 'int' | 'bool' | 'char' | 'float' | 'double' | Reference(primitive and reference type) 
+
+Name := nameChar[nameChar | Digit]*
+nameChar := '_'| '$'| a-z | A-Z 
+Digit := 0-9
+
+Args := TypeIdentifier Name
+|
+Statements := conditionalStm | Expression | loopStm | funcCalls | assignStm | StatementRest
+Statement := 
+assignStm := TypeIdentifier Name '=' Exp ';'
+
+conditionalStm := 'if' '(' boolStm ')' '{' [Statements]* '}'
+
+boolExp = equal | notEqual | less | more | equalOrLess  | equalOrMore | And | Or
+equality = varName | Value '=' varName | Value
+notEqual = varName | Value '!''=' varName | Value
+less = varName | Value '<' varName | Value
+more = varName | Value '>' varName | Value
+equalOrLess = varName | Value '>''=' varName | Value
+equalOrMore = varName | Value '<''=' varName | Value 
+And = 
+ 
+loopStm := 'for' '('[assignStm]* ';' [boolStm ';' ')' '{'  '}' | while '(' condition')'
+
+
+Expression := AddExp | SubExp | MultExp | DivExp | BoolExp
+
+Value = Integer | Double | Boolean | String | Character
+
+AddExp := Value AddRest
+AddRest := 
+
+SubExp := Value SubRest
+SubRest := eps | '-' Exp
+
+DivExp := Value DivRest
+Divrest := eps | '/' Exp
+
+MultExp := Value MultRest
+MultRest := eps | '*' Exp
+
+BoolExp := Value BoolRest
+BoolRest := eps | BoolAnd | BoolOr | BoolNot
+BoolAnd := '&' Exp
+BoolOr := '|' Exp
+BoolNot := '!' Exp
+
+condStm = if '(' condition ')' '{'
+
+
+'}'
